@@ -78,31 +78,30 @@ export class CalculatorComponent implements OnInit {
   }
 
   passNumber(btnNumber: any): void {
-    if (btnNumber === 'C') {
-      this.decimal = '0';
-      this.active = 64;
-      this.bits = this.bits.map(bit => bit = 0);
-    } else if (btnNumber.length === 0 && btnNumber === 0) {
-      this.decimal = '0';
-      this.bits = this.bits.map(bit => bit = 0);
-    } else if (btnNumber === '<') {
-
-      this.decimal = this.decimal.slice(0, -1);
-      if (this.decimal.length > 0) {
-        this.bits = this.toBinary(+this.decimal);
-      } else {
+    switch (btnNumber) {
+      case 'C':
         this.decimal = '0';
         this.active = 64;
-      }
+        this.bits = this.bits.map(bit => bit = 0);
+        break;
+      case '<':
+        this.decimal = this.decimal.slice(0, -1);
+        if (this.decimal.length > 0) {
+          this.bits = this.toBinary(+this.decimal);
+        } else {
+          this.decimal = '0';
+          this.active = 64;
+        }
+        break;
+      default:
+        this.decimal += btnNumber;
+        if (this.decimal[0] === '0') {
+          this.decimal = this.decimal.slice(1);
+        } else {
+          this.bits = this.toBinary(+this.decimal);
+        }
 
-    } else {
-      this.decimal += btnNumber;
-      if (this.decimal[0] === '0') {
-        this.decimal = this.decimal.slice(1);
-      }
-
-      this.bits = this.toBinary(+this.decimal);
     }
-  }
 
+  }
 }
