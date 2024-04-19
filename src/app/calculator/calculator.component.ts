@@ -68,9 +68,9 @@ export class CalculatorComponent implements OnInit {
 
     // Complete the binary array with leading zeros
     if (binary.length < 64) {
-      const leadinZeros = 64 - binary.length;
-      this.active = leadinZeros;
-      for (let i = 0; i < leadinZeros; i++) {
+      const leadingZeros = 64 - binary.length;
+      this.active = leadingZeros;
+      for (let i = 0; i < leadingZeros; i++) {
         binary.unshift(0);
       }
     }
