@@ -1,0 +1,29 @@
+<div class="results">{{decimal}}</div>
+<div class="binary">
+        <div class="binary-row">
+            <div class="significant most">
+                <span>63</span>
+                <span>47</span>
+                <span>31</span>
+                <span>15</span>
+            </div>
+        
+            <div class="bits-grid">
+                <span *ngFor="let bit of bits; let i = index" class="bits-grid-item"  [ngClass]="{'active' : i >= active}" (click)="toggleBit(i)"> {{bit}}</span>
+            </div> 
+
+            <div class="significant least">
+                <span>48</span>
+                <span>32</span>
+                <span>16</span> 
+                <span>0</span>
+            </div>
+        </div>    
+</div>
+<div class="calculator">
+    <div class="calcButtons">
+        @for (butNumber of calcButtons; track butNumber; let i = $index) {
+            <button type="button"  (click)="passNumber(butNumber)">{{butNumber}}</button>
+        }
+    </div>
+</div>
