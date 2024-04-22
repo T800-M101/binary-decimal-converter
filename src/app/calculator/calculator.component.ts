@@ -61,6 +61,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   private toBinary(number: number): number[] {
+    console.log(number)
     let binary = [];
     while (number > 1) {
       if (Math.floor(number) % 2 === 0) {
@@ -87,6 +88,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   passNumber(btnNumber: any): void {
+    console.log('btn', btnNumber)
     switch (btnNumber) {
       case 'C':
       case 'c':
@@ -96,7 +98,7 @@ export class CalculatorComponent implements OnInit {
         break;
       case '<':
         this.decimal = this.decimal.slice(0, -1);
-        if (this.decimal.length > 0) {
+        if (this.decimal.length) {
           this.bits = this.toBinary(+this.decimal);
         } else {
           this.decimal = '0';
@@ -105,16 +107,17 @@ export class CalculatorComponent implements OnInit {
         break;
       default:
         this.decimal += btnNumber;
-        if (this.decimal[0] === '0') {
-          this.decimal = this.decimal.slice(1);
-        } else {
-          if (+this.decimal <= 1000000000000000000) {
-            this.bits = this.toBinary(+this.decimal);
-          } else {
-            this.decimal = '1000000000000000000';
-          }
-        }
 
+        if (this.decimal.length > 0 && this.decimal[0] === '0') {
+            this.decimal = this.decimal.slice(1);
+        }
+        if (+this.decimal <= 1000000000000000000) {
+          this.bits = this.toBinary(+this.decimal);
+        } else {
+          this.decimal = '999999999999999999';
+          this.bits = this.toBinary(+this.decimal);
+        }
+        
     }
 
   }
