@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-calculator',
@@ -9,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './calculator.component.css'
 })
 export class CalculatorComponent implements OnInit {
+  key: any;
   bits: number[] = [];
   active!: number;
   decimal = '0';
   calcButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '<', '0', 'C'];
 
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if(['0','1','2','3','4','5','6','7','8','9','c', 'C', '<'].includes(event.key)) {
+      this.passNumber(event.key);
+    }
+   
+  }
 
   ngOnInit(): void {
     this.populateBits();
@@ -63,6 +71,7 @@ export class CalculatorComponent implements OnInit {
         number = Math.floor(number / 2);
       }
     }
+   
     binary.push(1);
     binary = binary.reverse();
 
@@ -80,6 +89,7 @@ export class CalculatorComponent implements OnInit {
   passNumber(btnNumber: any): void {
     switch (btnNumber) {
       case 'C':
+      case 'c':
         this.decimal = '0';
         this.active = 64;
         this.bits = this.bits.map(bit => bit = 0);
@@ -98,7 +108,11 @@ export class CalculatorComponent implements OnInit {
         if (this.decimal[0] === '0') {
           this.decimal = this.decimal.slice(1);
         } else {
-          this.bits = this.toBinary(+this.decimal);
+          if (+this.decimal <= 1000000000000000000) {
+            this.bits = this.toBinary(+this.decimal);
+          } else {
+            this.decimal = '1000000000000000000';
+          }
         }
 
     }
