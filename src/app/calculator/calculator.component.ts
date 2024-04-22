@@ -61,7 +61,6 @@ export class CalculatorComponent implements OnInit {
   }
 
   private toBinary(number: number): number[] {
-    console.log(number)
     let binary = [];
     while (number > 1) {
       if (Math.floor(number) % 2 === 0) {
@@ -88,7 +87,6 @@ export class CalculatorComponent implements OnInit {
   }
 
   passNumber(btnNumber: any): void {
-    console.log('btn', btnNumber)
     switch (btnNumber) {
       case 'C':
       case 'c':
