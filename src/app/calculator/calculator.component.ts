@@ -72,8 +72,10 @@ export class CalculatorComponent implements OnInit {
       }
     }
    
-    binary.push(1);
-    binary = binary.reverse();
+    if(number > 0) {
+      binary.push(1);
+      binary = binary.reverse();
+    }
 
     // Complete the binary array with leading zeros
     if (binary.length < 64) {
