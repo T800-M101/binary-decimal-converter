@@ -100,7 +100,6 @@ export class CalculatorComponent implements OnInit {
         if (this.decimal.length) {
           this.bits = this.toBinary(+this.decimal);
         } else {
-          console.log(this.bits)
           this.decimal = '0';
           this.active = 64;
           this.bits = this.bits.map(bit => 0);
